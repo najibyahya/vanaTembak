@@ -29,6 +29,15 @@ const readHashes = () => {
 const performRequests = async (hashes, points) => {
     for (const hash of hashes) {
         try {
+                        const responsee = await axios.get('https://www.vanadatahero.com/api/player', {
+                headers: {
+                    'X-Telegram-Web-App-Init-Data': hash,
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
+                }
+            });
+        } catch (error) {
+            console.error(`Error with hash ${hash}:`, error);
+        }
             // Perform tembakPoint request
             await axios.post('https://www.vanadatahero.com/api/tasks/1', {
                 status: 'completed',
