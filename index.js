@@ -2,7 +2,6 @@ const axios = require('axios');
 const fs = require('fs');
 const readline = require('readline');
 
-// Function to read lines from hash.txt
 const readHashes = () => {
     return new Promise((resolve, reject) => {
         const hashes = [];
@@ -27,16 +26,12 @@ const readHashes = () => {
     });
 };
 
-// Function to perform the requests
 const performRequests = async (hashes, points) => {
     for (const hash of hashes) {
         try {
-            console.log(`Processing account with hash: ${hash}`);
-
-            // Perform tembakPoint request
             await axios.post('https://www.vanadatahero.com/api/tasks/1', {
                 status: 'completed',
-                points: parseFloat(points) // Ensure points is a number
+                points: parseFloat(points)
             }, {
                 headers: {
                     'X-Telegram-Web-App-Init-Data': hash,
@@ -55,7 +50,6 @@ const performRequests = async (hashes, points) => {
                 }
             });
 
-            // Perform infoUser request
             const response = await axios.get('https://www.vanadatahero.com/api/player', {
                 headers: {
                     'X-Telegram-Web-App-Init-Data': hash,
@@ -88,7 +82,6 @@ const performRequests = async (hashes, points) => {
     }
 };
 
-// Main function
 const main = async () => {
     try {
         const hashes = await readHashes();
