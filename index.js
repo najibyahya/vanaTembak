@@ -12,7 +12,9 @@ const readHashes = () => {
         });
 
         rl.on('line', (line) => {
-            hashes.push(line);
+            if (line.trim()) {
+                hashes.push(line.trim());
+            }
         });
 
         rl.on('close', () => {
@@ -29,23 +31,27 @@ const readHashes = () => {
 const performRequests = async (hashes, points) => {
     for (const hash of hashes) {
         try {
-                        const responsee = await axios.get('https://www.vanadatahero.com/api/player', {
-                headers: {
-                    'X-Telegram-Web-App-Init-Data': hash,
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
-                }
-            });
-        } catch (error) {
-            console.error(`Error with hash ${hash}:`, error);
-        }
+            console.log(`Processing account with hash: ${hash}`);
+
             // Perform tembakPoint request
             await axios.post('https://www.vanadatahero.com/api/tasks/1', {
                 status: 'completed',
-                points: points
+                points: parseFloat(points) // Ensure points is a number
             }, {
                 headers: {
                     'X-Telegram-Web-App-Init-Data': hash,
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0',
+                    'Accept': '*/*',
+                    'Accept-Encoding': 'gzip, deflate, br, zstd',
+                    'Accept-Language': 'id,en;q=0.9,en-GB;q=0.8,en-US;q=0.7',
+                    'Priority': 'u=1, i',
+                    'Referer': 'https://www.vanadatahero.com/home',
+                    'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Microsoft Edge";v="126", "Microsoft Edge WebView2";v="126"',
+                    'Sec-Ch-Ua-Mobile': '?0',
+                    'Sec-Ch-Ua-Platform': '"Windows"',
+                    'Sec-Fetch-Dest': 'empty',
+                    'Sec-Fetch-Mode': 'cors',
+                    'Sec-Fetch-Site': 'same-origin'
                 }
             });
 
@@ -53,7 +59,18 @@ const performRequests = async (hashes, points) => {
             const response = await axios.get('https://www.vanadatahero.com/api/player', {
                 headers: {
                     'X-Telegram-Web-App-Init-Data': hash,
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0',
+                    'Accept': '*/*',
+                    'Accept-Encoding': 'gzip, deflate, br, zstd',
+                    'Accept-Language': 'id,en;q=0.9,en-GB;q=0.8,en-US;q=0.7',
+                    'Priority': 'u=1, i',
+                    'Referer': 'https://www.vanadatahero.com/home',
+                    'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Microsoft Edge";v="126", "Microsoft Edge WebView2";v="126"',
+                    'Sec-Ch-Ua-Mobile': '?0',
+                    'Sec-Ch-Ua-Platform': '"Windows"',
+                    'Sec-Fetch-Dest': 'empty',
+                    'Sec-Fetch-Mode': 'cors',
+                    'Sec-Fetch-Site': 'same-origin'
                 }
             });
 
@@ -65,7 +82,8 @@ const performRequests = async (hashes, points) => {
             console.log('---------------------------');
 
         } catch (error) {
-            console.error(`Error with hash ${hash}:`, error);
+            console.error(`Error with hash ${hash}: ${error.message}`);
+            console.error('Response data:', error.response ? error.response.data : 'No response data');
         }
     }
 };
