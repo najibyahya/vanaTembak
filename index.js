@@ -35,14 +35,16 @@ const performRequests = async (hashes, points) => {
                 points: points
             }, {
                 headers: {
-                    'X-Telegram-Web-App-Init-Data': hash
+                    'X-Telegram-Web-App-Init-Data': hash,
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
                 }
             });
 
             // Perform infoUser request
             const response = await axios.get('https://www.vanadatahero.com/api/player', {
                 headers: {
-                    'X-Telegram-Web-App-Init-Data': hash
+                    'X-Telegram-Web-App-Init-Data': hash,
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0'
                 }
             });
 
