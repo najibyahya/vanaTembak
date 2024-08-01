@@ -1,0 +1,1 @@
+query_id=AAHXx8pxAgAAANfHynHzM12n&user=%7B%22id%22%3A6204082135%2C%22first_name%22%3A%22Najiib%22%2C%22last_name%22%3A%22Yahya%22%2C%22username%22%3A%22andraz404%22%2C%22language_code%22%3A%22id%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1722551868&hash=f2111ca7742d30a3a94971a8e6f97a51ad486dae9bdd7b775efa51b6ddd0d317
